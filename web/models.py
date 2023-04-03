@@ -15,9 +15,9 @@ class Genre(models.Model):
 
 
 class Author(models.Model):
-    first_name = models.CharField(255)
-    middle_name = models.CharField(255)
-    last_name = models.CharField(255)
+    first_name = models.CharField(max_length=255)
+    middle_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
 
 
 class Book(models.Model):
@@ -26,7 +26,7 @@ class Book(models.Model):
     count = models.PositiveIntegerField
     price = models.DecimalField(max_digits=8, decimal_places=2)
     publish_date = models.DateField
-    isbn = models.CharField(13)
+    isbn = models.CharField(max_length=13)
     publisher = models.ForeignKey(Publisher, on_delete=models.PROTECT)
     genres = models.ManyToManyField(Genre)
     authors = models.ManyToManyField(Author)
