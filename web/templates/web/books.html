@@ -1,0 +1,40 @@
+{% extends 'web/base.html' %}
+{% block content %}
+<body>
+<h1>Пользователь: {{request.user.username}}, Счет: {{amount}} руб.</h1>
+<table>
+  <tr>
+    <th>Название книги</th>
+    <th>Кол-во страниц</th>
+    <th>Цена</th>
+    <th>Автор</th>
+    <th>Жанры</th>
+    <th>Кол-во</th>
+  </tr>
+  {% for book in books %}
+  <tr>
+   <td>{{ book.title }}</td>
+    <td>{{ book.total_pages }}</td>
+    <td>{{ book.price }}</td>
+    <td>
+        {% for author in book.authors.all %}
+        {{author.first_name}} {{author.middle_name}} {{author.last_name}}
+        {% endfor %}
+    </td>
+    <td>
+        {% for genre in book.genres.all %}
+        {{genre.genre}}
+        {% endfor %}
+    </td>
+    <td>{{ book.count }}</td>
+    <td>   <form action="" method="post">
+         {% csrf_token %}
+        <input type="hidden" name="book_id" value={{book.id}}>
+            <button>Купить</button>
+        </form></td>
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+{% endblock %}

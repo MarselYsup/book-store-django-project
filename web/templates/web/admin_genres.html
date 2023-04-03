@@ -1,0 +1,29 @@
+{% extends 'web/base.html' %}
+{% block content %}
+<body>
+<h1>Админ панель для жанров</h1>
+<table>
+  <tr>
+    <th>Название жанра</th>
+  </tr>
+  {% for genre in genres %}
+  <tr>
+   <td> <form action="/update-genre" method="post">
+         {% csrf_token %}
+        <input type="text" name="genre" value={{genre}}>
+        <input type="hidden" name="id" value={{genre.id}}>
+       <button hidden></button>
+        </form></td>
+    <td>   <form action="" method="post">
+         {% csrf_token %}
+        <input type="hidden" name="genre_id" value={{genre.id}}>
+            <button>Удалить</button>
+        </form></td>
+  </tr>
+  {% endfor %}
+
+
+</table>
+
+</body>
+{% endblock %}

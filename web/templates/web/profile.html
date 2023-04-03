@@ -1,0 +1,35 @@
+{% extends 'web/base.html' %}
+{% block content %}
+    <h1>Профиль</h1>
+    <h2>Пользователь: {{request.user.username}}</h2>
+
+    <h2>Счет: {{amount}} руб.</h2>
+<br>
+<br>
+    <h2>Мои книги</h2>
+    <table>
+  <tr>
+    <th>Название книги</th>
+    <th>Кол-во страниц</th>
+    <th>Авторы</th>
+    <th>Издатель</th>
+    <th>Жанры</th>
+  </tr>
+  {% for book in books.all %}
+  <tr>
+   <td>{{ book.title }}</td>
+    <td>{{ book.total_pages }}</td>
+    <td>
+        {% for author in book.authors.all %}
+        {{author.first_name}} {{author.middle_name}} {{author.last_name}}
+        {% endfor %}
+    </td>
+      <td>{{ book.publisher.name }}</td>
+    <td>
+        {% for genre in book.genres.all %}
+        {{genre.genre}}
+        {% endfor %}
+    </td>
+      {% endfor %}
+</table>
+{% endblock %}

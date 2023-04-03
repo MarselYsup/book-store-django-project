@@ -10,4 +10,5 @@
 - `docker-compose up -d` - поднять postgres
 - `pip install -r requirements.txt` - установка зависимостей
 -  `python manage.py migrate` - применить миграции
+-  `python manage.py createsuperuser` - создать суперпользователя
 - `python manage.py runserver`  - запустить сервер для разработки на http://127.0.0.1:8000
