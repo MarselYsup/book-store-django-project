@@ -2,7 +2,7 @@ import decimal
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.shortcuts import render
 
