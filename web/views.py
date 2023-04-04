@@ -188,3 +188,28 @@ def admin_genres_update_view(request):
         genre.save()
     genres = Genre.objects.all()
     return redirect("admingenres")
+
+
+@staff_member_required
+def sort_books_view(request):
+    if request.method == 'POST':
+        sort = request.POST["sort"]
+        if sort == 'price':
+            books = Book.objects.order_by("price")
+            return render(request, "web/admin_books.html", {"books": books})
+        elif sort == 'date':
+            books = Book.objects.order_by("publish_date")
+            return render(request, "web/admin_books.html", {"books": books})
+        elif sort == 'tit_asc':
+            books = Book.objects.order_by("title")
+            return render(request, "web/admin_books.html", {"books": books})
+        elif sort == 'tit_desc':
+            books = Book.objects.order_by("-title")
+            return render(request, "web/admin_books.html", {"books": books})
+        elif sort == 'count':
+            books = Book.objects.order_by("count")
+            return render(request, "web/admin_books.html", {"books": books})
+        elif sort == 'pages':
+            books = Book.objects.order_by("total_pages")
+            return render(request, "web/admin_books.html", {"books": books})
+    return redirect("adminbooks")

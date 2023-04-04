@@ -2,6 +2,48 @@
 {% block content %}
 <body>
 <h1>Админ панель для книг</h1>
+    <nav>
+        <h2> <form action="/sort-book" method="post">
+         {% csrf_token %}
+        <input type="hidden" name="sort" value="date">
+            <button>Сортировать по дате</button>
+        </form></h2>
+        <h2>
+            <form action="/sort-book" method="post">
+         {% csrf_token %}
+        <input type="hidden" name="sort" value=price>
+            <button>Сортировать по цене</button>
+        </form>
+        </h2>
+        <h2>
+            <form action="/sort-book" method="post">
+         {% csrf_token %}
+        <input type="hidden" name="sort" value="tit_asc">
+            <button>Сортировать по названию от А-Я</button>
+        </form>
+        </h2>
+        <h2>
+            <form action="/sort-book" method="post">
+         {% csrf_token %}
+        <input type="hidden" name="sort" value="tit_desc">
+            <button>Сортировать по названию от Я-А</button>
+        </form>
+        </h2>
+         <h2>
+            <form action="/sort-book" method="post">
+         {% csrf_token %}
+        <input type="hidden" name="sort" value="pages">
+            <button>Сортировать по кол-ву страниц</button>
+        </form>
+        </h2>
+         <h2>
+            <form action="/sort-book" method="post">
+         {% csrf_token %}
+        <input type="hidden" name="sort" value="count">
+            <button>Сортировать по кол-ву</button>
+        </form>
+        </h2>
+    </nav>
 <table>
   <tr>
     <th>Название книги</th>
@@ -10,6 +52,7 @@
     <th>Автор</th>
     <th>Жанры</th>
     <th>Кол-во</th>
+    <th>Дата публикации</th>
   </tr>
   {% for book in books %}
   <tr>
@@ -27,6 +70,7 @@
         {% endfor %}
     </td>
     <td>{{ book.count }}</td>
+    <td>{{ book.publish_date }}</td>
     <td>   <form action="" method="post">
          {% csrf_token %}
         <input type="hidden" name="book_id" value={{book.id}}>
