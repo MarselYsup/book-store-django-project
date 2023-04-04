@@ -1,0 +1,12 @@
+{% extends 'web/base.html' %}
+{% block content %}
+    <h2>Форма для добавление жанра</h2>
+ {% if is_success %}
+        <p><b>Успешно сохранен!</b></p>
+{% endif %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Добавить</button>
+        </form>
+{% endblock %}

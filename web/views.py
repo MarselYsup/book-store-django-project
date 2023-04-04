@@ -1,10 +1,13 @@
+import decimal
+
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.shortcuts import render
 
-from web.forms import RegistrationForm, AuthForm, BookIdForm, BookForm, GenreIdForm
+from web.forms import RegistrationForm, AuthForm, BookIdForm, BookForm, GenreIdForm, AuthorForm, PublisherForm, \
+    GenreForm
 from web.models import Book, UserProfile, Genre
 
 # Create your views here.
@@ -84,6 +87,10 @@ def books_view(request):
 @login_required
 def profile_view(request):
     user_profile = UserProfile.objects.get(user_id=request.user.id)
+    if request.method == 'POST':
+        amount = request.POST["amount"]
+        user_profile.amount = user_profile.amount + decimal.Decimal(amount)
+        user_profile.save()
     return render(request, "web/profile.html", {"books": user_profile.books, "amount": user_profile.amount})
 
 
@@ -100,6 +107,47 @@ def book_add_view(request):
         "form": form, "is_success": is_success
     })
 
+
+@staff_member_required
+def author_add_view(request):
+    form = AuthorForm()
+    is_success = False
+    if request.method == 'POST':
+        form = AuthorForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            is_success = True
+    return render(request, "web/author_add.html", {
+        "form": form, "is_success": is_success
+    })
+
+
+@staff_member_required
+def publisher_add_view(request):
+    form = PublisherForm()
+    is_success = False
+    if request.method == 'POST':
+        form = PublisherForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            is_success = True
+    return render(request, "web/publisher_add.html", {
+        "form": form, "is_success": is_success
+    })
+
+
+@staff_member_required
+def genre_add_view(request):
+    form = GenreForm()
+    is_success = False
+    if request.method == 'POST':
+        form = GenreForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            is_success = True
+    return render(request, "web/genre_add.html", {
+        "form": form, "is_success": is_success
+    })
 
 @staff_member_required
 def admin_books_view(request):

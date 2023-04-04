@@ -6,12 +6,28 @@
 </head>
 <body>
   <h1><a href="{% url 'main' %}">Book store</a></h1>
+
   <nav>
       <a href="{% url 'main' %}"> Главная </a>
+      <br>
       {% if user.is_anonymous %}
             <a href="{% url 'registration' %}"> Регистрация </a>
             <a href="{% url 'auth' %}"> Авторизация </a>
-      {% else %}
+      {% elif user.is_superuser %}
+       <a href="{% url 'admingenres' %}"> Жанры </a>
+      <br>
+       <a href="{% url 'adminbooks' %}"> Книги </a>
+      <br>
+       <a href="{% url 'bookform' %}">Форма для добавления книг </a>
+      <br>
+       <a href="{% url 'authorform' %}">Форма для добавления автора </a>
+      <br>
+       <a href="{% url 'publisherform' %}">Форма для добавления издателя </a>
+      <br>
+       <a href="{% url 'genreform' %}">Форма для добавления жанра </a>
+      <br>
+        <a href="{% url 'logout' %}"> Выход </a>
+       {% else %}
        <a href="{% url 'profile' %}"> Профиль </a>
        <a href="{% url 'books' %}"> Книги </a>
         <a href="{% url 'logout' %}"> Выход </a>

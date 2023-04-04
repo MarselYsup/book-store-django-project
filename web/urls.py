@@ -14,4 +14,7 @@ urlpatterns = [
     path("adminbooks/", views.admin_books_view, name="adminbooks"),
     path("admingenres/", views.admin_genres_view, name="admingenres"),
     path("update-genre", views.admin_genres_update_view, name="admin_genres_update"),
+    path("authorform/", views.author_add_view, name="authorform"),
+    path("publisherform/", views.publisher_add_view, name="publisherform"),
+    path("genreform/", views.genre_add_view, name="genreform"),
 ]
